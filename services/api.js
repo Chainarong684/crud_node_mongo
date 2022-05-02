@@ -62,4 +62,40 @@ const findUserById = async (req, res) => {
   }
 };
 
-module.exports = { createUser, findAllUser, findUserById };
+const updateUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserDB.findById(id);
+    if (!user) {
+      res.status(400).send({
+        status: "bad",
+        msg: "User ID not found",
+      });
+    } else {
+      const newUser = await UserDB.findByIdAndUpdate(user._id, req.body, {
+        new: true,
+      });
+      res.status(200).send({
+        status: "good",
+        data: newUser,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  createUser,
+  findAllUser,
+  findUserById,
+  updateUser,
+  deleteUser,
+};

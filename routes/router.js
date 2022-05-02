@@ -9,6 +9,8 @@ router.post("/api/v1/add", api.createUser);
 router.get("/api/v1/user", api.findAllUser);
 router.get("/api/v1/user/:id", api.findUserById);
 /* --------------------------------- Update --------------------------------- */
+router.put("/api/v1/edit/:id", api.updateUser);
 /* --------------------------------- Delete --------------------------------- */
+router.delete("/api/v1/edit/:id", api.deleteUser);
 
 module.exports = router;
