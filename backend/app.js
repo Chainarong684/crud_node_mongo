@@ -15,6 +15,9 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 
-connectDB(process.env.MONGO_ATLAS_URI);
+// MONGO ATLAS
+// connectDB(process.env.MONGO_ATLAS_URI);
+// MONGO LOCAL
+connectDB(process.env.MONGO_LOCAL_URI);
 
 app.use("/", router);

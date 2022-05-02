@@ -3,26 +3,63 @@ const UserDB = require("../models/userModel");
 const createUser = async (req, res) => {
   try {
     const { username, password, email, gender, phone, date } = req.body;
-
-    UserDB.create(
-      { username, password, email, gender, phone, date },
-      (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(result);
-        }
+    const user = new UserDB({
+      username,
+      password,
+      email,
+      gender,
+      phone,
+      date,
+    });
+    await user.save((err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(400).send({
+          status: "bad",
+          error: err,
+        });
+      } else {
+        res.status(200).send({
+          status: "good",
+          data: result,
+        });
       }
-    );
-    res.json({ status: "done", data: req.body });
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
 const findAllUser = async (req, res) => {
-  const users = await UserDB.find();
-  console.log(users);
+  try {
+    const user = await UserDB.find();
+    res.status(200).send({
+      status: "good",
+      data: user,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-module.exports = { createUser, findAllUser };
+const findUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await UserDB.findById(id);
+    if (!user) {
+      res.status(400).send({
+        status: "bad",
+        msg: "User ID not found",
+      });
+    } else {
+      res.status(200).send({
+        status: "good",
+        data: user,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { createUser, findAllUser, findUserById };
