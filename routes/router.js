@@ -7,10 +7,10 @@ const api = require("../services/api");
 router.post("/api/v1/add", api.createUser);
 /* ---------------------------------- Read ---------------------------------- */
 router.get("/api/v1/user", api.findAllUser);
-router.get("/api/v1/user/:id", api.findUserById);
+router.get("/api/v1/user/:id", api.findUser);
 /* --------------------------------- Update --------------------------------- */
 router.put("/api/v1/edit/:id", api.updateUser);
 /* --------------------------------- Delete --------------------------------- */
-router.delete("/api/v1/edit/:id", api.deleteUser);
+router.delete("/api/v1/del/:id", api.deleteUser);
 
 module.exports = router;
